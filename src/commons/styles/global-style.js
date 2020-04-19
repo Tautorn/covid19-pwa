@@ -29,6 +29,10 @@ const globalStyle = createGlobalStyle`
   .mb-2 {
     margin-bottom: 16px;
   }
+
+  .pt-2 {
+    padding-top: 16px;
+  }
 `
 
 export default globalStyle

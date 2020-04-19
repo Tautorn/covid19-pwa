@@ -11,53 +11,11 @@
     />
     <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <title>React App</title>
-    <style type="text/css">
-      body {
-        margin: 0;
-        padding: 0;
-        font-family: sans-serif;
-      }
-      .navbar {
-        background-color: #4169e1;
-      }
-      .navbar h3 {
-        display: inline-block;
-        text-align: left;
-        padding: 10px;
-        color: black;
-        text-decoration: none;
-      }
-      .navbar a {
-        display: inline-block;
-        padding: 10px;
-        color: #fff;
-        text-decoration: none;
-      }
-      .page-info {
-        padding: 10px;
-      }
-      .Current {
-        color: #2e8b57;
-      }
-      .Completed {
-        color: #ff6347;
-        text-decoration: line-through;
-      }
-    </style>
+    <title>Covid19 World</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    <div id="root">
-      <div class="navbar">
-        <h3>Task Manager</h3>
-        <a href="/">Current Tasks</a>
-        <a href="/completed">Completed Tasks</a>
-      </div>
-      <p class="page-info">
-        Loading...
-      </p>
-    </div>
+    <div id="root"></div>
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', function() {

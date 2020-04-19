@@ -6,7 +6,7 @@ const headers = {
   cache: 'default'
 }
 
-function getCountry(country = 'brazil') {
+function getCountry(country) {
   return fetch(`${path}/${country}`, headers)
     .then((response) => response.json())
     .catch(function(err){ 

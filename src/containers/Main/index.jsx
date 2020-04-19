@@ -1,41 +1,38 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo, useEffect, useCallback, useState } from 'react'
 import Api from '../../api'
-import { Grid } from 'components'
 import Panel from './components/Panel'
-import Card from './components/Card'
+import Board from './components/Board'
 import { ContainerStlyed } from './style'
 
-
 function Main() {
+  const [country, setCountry] = useState('brazil')
+  const [data, setData] = useState({})
+  const updatedAt = new Date().toLocaleString()
+
+  const getCovidData = useCallback((country) => {
+    Api
+      .getCountry(country)
+      .then(data => setData(data))
+  }, [country])
 
   useEffect(() => {
-    Api.getCountry()
-      .then(data => {
-        console.log('data', data)
-      })
-  }, [])
+    getCovidData(country)
+  }, [getCovidData, country])
+  
+  const handleChange = ({ target }) => {
+    const country = target.value
+    setCountry(country)
+  }
 
   return (
     <ContainerStlyed>
       <div className="mb-2">
         <Panel
-          updatedAt={"15:30 18/04/20"}
+          updatedAt={updatedAt}
+          onChange={handleChange}
         />
       </div>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={3}>
-          <Card value="34.232" label="Confirmados" color="#5d78ff" />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card value="34.232" label="Óbitos" color="#F7B829" />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card value="34.232" label="Letalidade" color="#E95078" />
-        </Grid>
-        <Grid item xs={12} md={3}>
-          <Card value="34.232" label="Total de mortos" color="#67C887" /> 
-        </Grid>
-      </Grid>      
+      <Board data={data} />
     </ContainerStlyed>
   )
 }

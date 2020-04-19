@@ -1,7 +1,6 @@
 var CACHE_NAME = 'covid19-pwa';
 var urlsToCache = [
-  '/',
-  '/completed'
+  '/'
 ];
 
 // Install a service worker
