@@ -1,21 +1,25 @@
-import React, { memo, useEffect } from 'react'
+import React, { memo } from 'react'
 import PropTypes from 'prop-types'
-import { Card, Typography, Button } from 'components'
+import RefreshIcon from 'assets/images/refresh.svg'
+import { Card, Typography, Button, Select, MenuItem } from 'components'
 import COUNTRIES from 'commons/constants/countries'
-import { CardPanelContentStyled } from './style'
+import { CardPanelContentStyled, ItemStyled } from './style'
 
 const navigatorHasShare = navigator.share
 
-function Panel({ updatedAt, onChange, data, country }) {
+function Panel({ updatedAt, onChange, data, country, getCovidData }) {
   const { cases, recovered, deaths, todayCases, todayDeaths } = data
 
   const renderCountries = (country, index) => (
-    <option key={`country-${index}`} value={country.value}>
-      {country.label}  
-    </option>
+    <MenuItem key={`country-${index}`} value={country.value}>
+      <ItemStyled>
+        <div>{country.label}</div>
+        <img src={country.flag} />
+      </ItemStyled>
+    </MenuItem>
   )
 
-  const textCovid19 = `Dados de hoje ${updatedAt} - Número de hoje: ${todayCases}\n. Óbitos hoje: ${todayDeaths}`
+  const textCovid19 = `Dados atualizados em ${updatedAt} - Hoje - Casos: ${todayCases}. Óbitos: ${todayDeaths}. Total - Casos: ${cases}. Óbitos: ${deaths}. Recuperados: ${recovered}`
 
   const shareInfo = () => {
     navigator.share({
@@ -23,8 +27,6 @@ function Panel({ updatedAt, onChange, data, country }) {
       text: textCovid19,
       url: 'https://covid19pwa.netlify.app/',
     })
-      .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing', error))
   }
 
   const copyInfo = () => {
@@ -52,13 +54,14 @@ function Panel({ updatedAt, onChange, data, country }) {
     <Card>
       <CardPanelContentStyled>
         <div>
-          <Typography variant="body" component="span">COVID19</Typography>
+          <Typography variant="h5" component="span" color="primary">COVID19</Typography>
           <Typography variant="h6" component="p">Painel Coronavírus</Typography>
-          <Typography variant="body2" component="span">Atualizado em: {updatedAt}</Typography>
+          <Typography variant="body2" component="span" color="secondary">Atualizado em: {updatedAt}</Typography>
+          <img src={RefreshIcon} alt="Atualizar" onClick={() => getCovidData(country)} />
           <div className="pt-2">
-            <select onChange={onChange}>
+            <Select onChange={onChange} value={country}>
               {COUNTRIES.map(renderCountries)}
-            </select>
+            </Select>
           </div>
         </div>
         {navigatorHasShare ? renderShareButton : renderCopyButton}
