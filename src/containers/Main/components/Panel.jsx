@@ -57,7 +57,7 @@ function Panel({ updatedAt, onChange, data, country, getCovidData }) {
           <Typography variant="h5" component="span" color="primary">COVID19</Typography>
           <Typography variant="h6" component="p">Painel Coronavírus</Typography>
           <Typography variant="body2" component="span" color="secondary">Atualizado em: {updatedAt}</Typography>
-          <img src={RefreshIcon} alt="Atualizar" onClick={() => getCovidData(country)} />
+          <img src={RefreshIcon} alt="Atualizar" onClick={() => getCovidData(country)} className="cursor" />
           <div className="pt-2">
             <Select onChange={onChange} value={country}>
               {COUNTRIES.map(renderCountries)}

@@ -33,6 +33,10 @@ const globalStyle = createGlobalStyle`
   .pt-2 {
     padding-top: 16px;
   }
+
+  .cursor {
+    cursor: pointer;
+  }
 `
 
 export default globalStyle
