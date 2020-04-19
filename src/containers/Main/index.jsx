@@ -13,7 +13,7 @@ function Main() {
     Api
       .getCountry(country)
       .then(data => setData(data))
-  }, [country])
+  }, [])
 
   useEffect(() => {
     getCovidData(country)
