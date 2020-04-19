@@ -28,8 +28,10 @@ function Main() {
     <ContainerStlyed>
       <div className="mb-2">
         <Panel
+          data={data}
           updatedAt={updatedAt}
           onChange={handleChange}
+          country={country}
         />
       </div>
       <Board data={data} />

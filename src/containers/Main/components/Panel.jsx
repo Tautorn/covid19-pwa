@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { Card, Typography, Button } from 'components'
 import COUNTRIES from 'commons/constants/countries'
@@ -6,7 +6,8 @@ import { CardPanelContentStyled } from './style'
 
 const navigatorHasShare = navigator.share
 
-function Panel({ updatedAt, onChange }) {
+function Panel({ updatedAt, onChange, data, country }) {
+  const { cases, recovered, deaths, todayCases, todayDeaths } = data
 
   const renderCountries = (country, index) => (
     <option key={`country-${index}`} value={country.value}>
@@ -14,15 +15,38 @@ function Panel({ updatedAt, onChange }) {
     </option>
   )
 
+  const textCovid19 = `Dados de hoje ${updatedAt} - Número de hoje: ${todayCases}\n. Óbitos hoje: ${todayDeaths}`
+
   const shareInfo = () => {
     navigator.share({
-      title: 'web.dev',
-      text: 'Check out web.dev.',
-      url: 'https://web.dev/',
+      title: `Dados do Covid19 - ${country}`,
+      text: textCovid19,
+      url: 'https://covid19pwa.netlify.app/',
     })
       .then(() => console.log('Successful share'))
-      .catch((error) => console.log('Error sharing', error));
+      .catch((error) => console.log('Error sharing', error))
   }
+
+  const copyInfo = () => {
+    navigator.clipboard.writeText(textCovid19);
+
+  }
+
+  const renderShareButton = (
+    <div>
+      <Button variant="contained" color="primary" onClick={shareInfo}>
+        Compartilhar dados
+      </Button>
+    </div>
+  )
+
+  const renderCopyButton = (
+    <div>
+      <Button variant="contained" color="primary" onClick={copyInfo}>
+        Copiar dados
+      </Button>
+    </div>
+  )
 
   return (
     <Card>
@@ -37,20 +61,16 @@ function Panel({ updatedAt, onChange }) {
             </select>
           </div>
         </div>
-        {navigatorHasShare && (
-          <div>
-            <Button variant="contained" color="primary" onClick={shareInfo}>
-              Compartilhar
-            </Button>
-          </div>
-        )}
+        {navigatorHasShare ? renderShareButton : renderCopyButton}
       </CardPanelContentStyled>
     </Card>
   )
 }
 
 Panel.propTypes = {
+  data: PropTypes.object.isRequired,
   updatedAt: PropTypes.string.isRequired,
+  country: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired
 }
 
