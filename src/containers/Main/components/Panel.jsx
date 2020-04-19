@@ -19,7 +19,7 @@ function Panel({ updatedAt, onChange, data, country, getCovidData }) {
     </MenuItem>
   )
 
-  const textCovid19 = `Dados atualizados em ${updatedAt} - Hoje - Casos: ${todayCases}. Óbitos: ${todayDeaths}. Total - Casos: ${cases}. Óbitos: ${deaths}. Recuperados: ${recovered}`
+  const textCovid19 = `País: ${country} - Dados atualizados em ${updatedAt} - Hoje - Casos: ${todayCases}. Óbitos: ${todayDeaths}. Total - Casos: ${cases}. Óbitos: ${deaths}. Recuperados: ${recovered}`
 
   const shareInfo = () => {
     navigator.share({
