@@ -14,7 +14,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build && npm run clean-cra-sw && npm run build-sw && gzipper -i js --verbose ./build",
+    "build": "react-app-rewired build",
     "eslint": "eslint --ext .jsx,.js src"
   },
   "eslintConfig": {
